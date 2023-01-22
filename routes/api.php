@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\Posts\PostsController;
 use App\Http\Controllers\API\Users\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,12 @@ Route::group(['prefix'=>'v1'],function (){
         Route::patch('users/{id}', [UserController::class,'update']);
         Route::delete('users/{id}', [UserController::class,'destroy']);
     });
+
+//    Posts Endpoints
+    Route::post('/posts', [PostsController::class, 'store']);
+    Route::get('/posts', [PostsController::class, 'index']);
+    Route::get('/posts/{id}', [PostsController::class, 'show']);
+    Route::patch('/posts/{id}', [PostsController::class, 'update']);
+    Route::delete('/posts/{id}', [PostsController::class, 'destroy']);
+
 });

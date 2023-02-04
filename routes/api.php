@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\Posts\PostsController;
 use App\Http\Controllers\API\Users\UserController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,5 +41,11 @@ Route::group(['prefix'=>'v1'],function (){
     Route::get('/posts/{id}', [PostsController::class, 'show']);
     Route::patch('/posts/{id}', [PostsController::class, 'update']);
     Route::delete('/posts/{id}', [PostsController::class, 'destroy']);
+
+//    Reviews Endpoints
+    Route::get('/posts/{id}/reviews', [ReviewController::class, 'index']);
+    Route::patch('/posts/{id}reviews/{id}', [ReviewController::class, 'update']);
+    Route::delete('/posts/{id}/reviews/{id}', [ReviewController::class, 'destroy']);
+    Route::post('/posts/{id}/reviews', [ReviewController::class, 'store']);
 
 });

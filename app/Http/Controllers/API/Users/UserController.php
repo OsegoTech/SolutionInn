@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Users;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,14 +16,23 @@ class UserController extends Controller
      */
     public function index()
     {
-        try{
-            $users=User::all();
-            return response()
-                ->json([
-                    'success'=>true,
-                    'message'=>'You have successfully retrieved users',
-                    'data'=>$users
-                ],200);
+        try{;
+            if (Auth::user()->hasRole('ADMIN')) {
+                $users=User::with(['roles','permissions'])->get();
+                return response()
+                    ->json([
+                        'success'=>true,
+                        'message'=>'You have successfully retrieved users',
+                        'data'=>$users
+                    ],200);
+            } else{
+                return response()
+                    ->json([
+                        'success'=>true,
+                        'message'=>'You do not have enough rights to access this resource',
+                    ],403);
+            }
+
 
         } catch (\Exception $exception) {
             return response()

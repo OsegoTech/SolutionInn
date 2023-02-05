@@ -41,8 +41,8 @@ return [
             'provider' => 'users',
         ],
         'api' =>[
-//            "driver"=>'sanctum',
-//            "provider"=>"api"
+            "driver"=>'token',
+            "provider"=>"api"
         ]
     ],
 

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -43,6 +44,8 @@ class AuthController extends Controller
                 'phone_number'  =>$request->input('phone_number'),
                 'password'      =>Hash::make($request->input('password')),
             ]);
+            $role=Role::where("name","ADMIN")->first();
+            $user->assignRole($role);
             return response()
                 ->json([
                     'success'=>true,
